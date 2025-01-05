@@ -8,7 +8,12 @@ const server = http.createServer(app);
 const io = new Server(server);
 
 // Serve static files from the "public" directory
-app.use(express.static('public'));
+app.use(express.static(__dirname)); // __dirname points to the current directory
+
+// Serve the index.html file on the root path
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/index.html');
+});
 
 // Maintain waiting queue and paired users
 const waitingQueue = [];
